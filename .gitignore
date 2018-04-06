@@ -1,2 +1,7 @@
 practice_nexon.ipynb
-
+과제
+gitignore
+Myself_study/.ipynb_checkpoints
+## global gitignore for your computer ##
+# git config --global core.excludesfile '~/.gitignore'
+# echo '.ipynb_checkpoints' >> ~/.gitignore 
