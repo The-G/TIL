@@ -1,0 +1,67 @@
+- https://programmers.co.kr/learn/courses/12 해당 링크 수행하면서 특이사항 정리, 목차기록으로 기초 기억하기  
+- 1번 읽어본 정도.
+파트1. 변수와 계산(4/4)
+0. Hellom world! 
+1. 변수와 계산하기 
+2. 변수와 상수 (var, val)
+3. 변수 출력하기 
+파트2. 편리한 스칼라(3/3)
+4. Raange와 List (to, until, until by, toList, filter, map)
+5. 숫자 다루기 
+6. 문자열 다루기 
+파트3. 메소드와 함수(3/3)
+7. 메소드 정의 
+8. 익명함수1 
+9. 익명함수2 
+파트4. 튜플(3/3)
+10. 튜블 
+11. 여러개의 값 리턴 
+12. 변수에 값 넣기 (여러 개의 변수에 값을 넣을 수 있음)
+파트5. 제어문(3/3)
+13. 반복문 (while, for, 가장 스칼라스럽게 합을 구하는 방법)
+- sum = (0 until 10).sum 
+파트6. Collection(7/7)
+14. Array 
+- Array[Int]
+- Array[Any]
+- 배열의 값을 읽고 쓰기 
+- 배열을 붙일때는 ++ 연산자를 이용, 앞에 붙일때는 +:, 뒤에 붙일때는 :+ 연산자 
+- 값으로 index 찾기 
+- 다른 값만 가져오기 
+- findByName 
+15. List 
+- List[Any](기본 리스트를 사용하므로 Immutable)
+- 값을 읽어올 수는 있지만, 값을 변경할 수는 없음 
+- 앞에 붙이기는 :: 또는 +: 연산자, 리스트 두개를 붙이기는 ++ 또는 :::연산자 뒤에 붙이기는 :+연산자 (단, immutable list에서 효율적인 방법이 아님)
+- Diff 
+- 배열의 Finde와 같은 방식으로 동작 - findByName 이라는 함수 만들어 사용 가능
+16. Set
+- 내용을 수정할 수 없는 Set 
+- 중복이 제거되는 Set 
+- 값이 있는지 체크하는 방법은 괄호 안에 값을 넣어서 사용 
+- set을 더하면 중복된 내용은 제거된 새로운 Set이 생성됨 
+- Diff 
+- 여기서도 findByName 메소드 생성해서 사용할 수 있음 
+17. Map 
+- Map[String, Int] 타입의 맵 
+- Map[Any, Any] 타입의 맵 
+- 중복된 키가 있으면 마지막 값을 사용 
+- key를 가지고 값을 읽어오기 
+18. Array / List / Set / Map의 타입 
+- Array, List, Set, Map의 구성요소느 어떤 타입이든 사용할 수 있지만, 최종 타입은 공통으로 상속받는 타입 중 최상위 타입으로 결정된다. 
+19. 변경할 수 있는(Mutable) Collection
+- 스칼라는 변경할 수 없는(immutable) Collection을 사용하는 것을 권장한다. 그래서 기본 Collection이 immutable이다. 
+하지만, 꼭 필요한 경우 변경할 수 있는(mutable) collection을 사용할 수 있다. 
+- mutable.ArrayBuffer(1,2,3)
+20. 변경할 수 없는(immutable) collection에서 var와 val사용 
+- 변경할 수 없는(immutable) Collection이 var로 선언된 경우에 Collection에 += 연산자나 -+ 연산자를 사용할 수 있습니다. 
+하지만 Collectioon 자체가 변경할 수 없는 형태이므로 이때는 변경사항을 반영한 새로운 Collection이 만들어져서 var로 선언된 변수에 저장됩니다.
+변경할 수 있는(mutable) Collection의 경우에는 += 나 -= 연산자가 collection의 메소드로 동작합니다. 
+파트7. 클래스(2/2)
+21. 클래스 
+- 스칼라에서는 클래스를 아주 짧은 코드로도 만들 수 있다. 클래스를 선언하는 부분이 기본 생성자(constructor)의 역할도 하게 된다. 
+22. getter와 setter 
+- 자바와 달리 스칼라에서는 변수(val,var)와 메소드(def)는 같은 이름을 사용할 수 없다. 예를 들어 자바에서는 int name; 이라는 필드와 int name(){ return 0; } 이라는 메소드가 한 클래스에 있을 수 있지만, 스칼라에서는 안된다. 
+
+
+

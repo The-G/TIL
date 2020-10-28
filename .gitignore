@@ -6,3 +6,5 @@ Myself_study/.ipynb_checkpoints
 # git config --global core.excludesfile '~/.gitignore'
 # echo '.ipynb_checkpoints' >> ~/.gitignore 
 .ipynb_checkpoints
+.DS_Store
+
