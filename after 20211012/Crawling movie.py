@@ -38,7 +38,7 @@ else :
         title_attribute = date_element.find_element(By.CSS_SELECTOR, ".info-movie strong")
 
         if title_attribute.text == "듄-파트2":
-            print(f"{want_date} 에매 가능")
+            print(f"*** {want_date} 에매 가능 ***")
             break
         else:
             print(f"{want_date} 헤당 날짜 예약 불가능")
