@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException  # 수정된 부분
 
 # URL of the theater page
-want_date = 20240323
+want_date = 20240324
 CGV_THEATER_URL = f'http://www.cgv.co.kr/reserve/show-times/?areacode=01&theaterCode=0013&date={want_date}'  
 
 option = webdriver.ChromeOptions()
@@ -37,7 +37,7 @@ else :
         # date_attribute = date_element.get_attribute("date")
         title_attribute = date_element.find_element(By.CSS_SELECTOR, ".info-movie strong")
        
-        if title_attribute == "듄2":
+        if title_attribute == "듄-파트2":
             print(f"{want_date} 에매 가능")
             break
         else:
