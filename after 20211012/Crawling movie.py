@@ -36,8 +36,8 @@ else :
     for date_element in date_elements:
         # date_attribute = date_element.get_attribute("date")
         title_attribute = date_element.find_element(By.CSS_SELECTOR, ".info-movie strong")
-       
-        if title_attribute == "듄-파트2":
+
+        if title_attribute.text == "듄-파트2":
             print(f"{want_date} 에매 가능")
             break
         else:
@@ -46,3 +46,6 @@ else :
 
 # 브라우저 닫기
 driver.quit()
+
+
+
