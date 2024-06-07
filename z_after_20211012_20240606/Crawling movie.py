@@ -39,6 +39,7 @@ else :
 
         if title_attribute.text == "듄-파트2":
             print(f"*** {want_date} 에매 가능 ***")
+            print(CGV_THEATER_URL)
             break
         else:
             print(f"{want_date} 헤당 날짜 예약 불가능")
@@ -47,5 +48,7 @@ else :
 # 브라우저 닫기
 driver.quit()
 
+
+# todo:: 사항 aws에 ec2 free 띄워서 15분마다 알람이 올 수 있도록 할 수 있을 거 같은데!!! 
 
 
