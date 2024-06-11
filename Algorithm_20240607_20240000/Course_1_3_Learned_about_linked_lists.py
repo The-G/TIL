@@ -60,12 +60,12 @@ class SinglyLinkedList:
             current_node = current_node.next # 다음 노드로 이동
         print(None) # 리스트의 끝을 표시하기 위해 출력 
 
-# # 예제 사용 
-# sll = SinglyLinkedList()
-# sll.append(1)
-# sll.append(2)
-# sll.append(3)
-# sll.print_list() # Output: 1->2->3->None
+# 예제 사용 
+sll = SinglyLinkedList()
+sll.append(1)
+sll.append(2)
+sll.append(3)
+sll.print_list() # Output: 1->2->3->None
 
 # 2. 연결 리스트의 종류 
 # 이중 연결 리스트의 노드 클래스
@@ -128,32 +128,32 @@ def delete_node(linked_list, key):
     if current_node is None:
         return # 그냥 함수 종료 
     
-    # 이 부분 뭐지???,,, 여기부터
+    # 찾은 노드를 삭제 
     prev.next = current_node.next
     current_node = None 
 
-# sll = SinglyLinkedList()
-# sll.append(1)
-# sll.append(2)
-# sll.append(3)
-# delete_node(sll,2)
-# sll.print_list() # Output: 1->3->None
+sll = SinglyLinkedList()
+sll.append(1)
+sll.append(2)
+sll.append(3)
+delete_node(sll,2)
+sll.print_list() # Output: 1->3->None
 
 # 이중 연결 리스트에서 요소 탐색 
 def search_node(dll, key):
-    current_node = dll.head
-    while current_node:
-        if current_node.data == key:
-            return True
+    current_node = dll.head # 리스트의 첫 번째 값부터 확인 
+    while current_node: 
+        if current_node.data == key: 
+            return True # 찾았으면 True를 반환 
         current_node = current_node.next
-    return False
+    return False # 못 찾으면 False를 반환 
 
-# dll = DoublyLinkedList()
-# dll.append(1)
-# dll.append(2)
-# dll.append(3)
-# print(search_node(dll, 2)) # Output: True
-# print(search_node(dll, 4)) # Output: False
+dll = DoublyLinkedList()
+dll.append(1)
+dll.append(2)
+dll.append(3)
+print(search_node(dll, 2)) # Output: True
+print(search_node(dll, 4)) # Output: False
 
 
 
