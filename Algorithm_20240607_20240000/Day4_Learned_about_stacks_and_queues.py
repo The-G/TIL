@@ -57,14 +57,56 @@ class Stack:
     def size(self):
         return len(self.items)
 
+# # 예제 사용 
+# stack = Stack()
+# stack.push(1)
+# stack.push(2)
+# stack.push(3)
+# print(stack.pop()) # Output: 3 
+# print(stack.peek()) # Output: 2
+# print(stack.is_empty()) # Output: False
+# print(stack.size()) # Output: 2
+
+
+# 2. 큐(Queue)
+class Queue:
+    def __init__(self):
+        self.items = [] 
+
+    def enqueue(self, item):
+        self.items.insert(0, item)
+
+    def dequeue(self):
+        if not self.is_empty():
+            return self.items.pop()
+        return None
+    
+    def front(self):
+        if not self.is_empty():
+            return self.items[-1]
+        return None 
+    
+    def is_empty(self):
+        return len(self.items) == 0
+    
+    def size(self):
+        return len(self.items)
+    
 # 예제 사용 
-stack = Stack()
-stack.push(1)
-stack.push(2)
-stack.push(3)
-print(stack.pop()) # Output: 3 
-print(stack.peek()) # Output: 2
-print(stack.is_empty()) # Output: False
-print(stack.size()) # Output: 2
+queue = Queue() 
+queue.enqueue(1)
+queue.enqueue(2)
+queue.enqueue(3)
+print(queue.dequeue()) # 1
+print(queue.front()) # 2 
+print(queue.is_empty()) # False 
+print(queue.size()) # 2 
 
 
+# 실습 문제 풀이 예시 
+# 1. 스택을 사용하여 문자열의 괄호 균형 확인 
+
+
+
+
+        
