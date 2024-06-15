@@ -60,15 +60,15 @@ class Stack:
     def size(self):
         return len(self.items) # 리스트 길이를 반환한다. 
 
-# # 예제 사용 
-# stack = Stack()
-# stack.push(1)
-# stack.push(2)
-# stack.push(3)
-# print(stack.pop()) # Output: 3 
-# print(stack.peek()) # Output: 2
-# print(stack.is_empty()) # Output: False
-# print(stack.size()) # Output: 2
+# 예제 사용 
+stack = Stack()
+stack.push(1)
+stack.push(2)
+stack.push(3)
+print(stack.pop()) # Output: 3 
+print(stack.peek()) # Output: 2
+print(stack.is_empty()) # Output: False
+print(stack.size()) # Output: 2
 
 
 # 2. 큐(Queue) / FIFO
@@ -100,16 +100,75 @@ class Queue:
     def size(self):
         return len(self.items)
     
-# # 예제 사용 
-# queue = Queue() 
-# queue.enqueue(1)
-# queue.enqueue(2)
-# queue.enqueue(3)
-# print(queue.front()) # 1 
-# print(queue.dequeue()) # 1
-# print(queue.front()) # 2
-# queue.enqueue(4)
-# print(queue.is_empty()) # False 
-# print(queue.size()) # 3
-# print(queue.front()) # 2
+# 예제 사용 
+queue = Queue() 
+queue.enqueue(1)
+queue.enqueue(2)
+queue.enqueue(3)
+print(queue.front()) # 1 
+print(queue.dequeue()) # 1
+print(queue.front()) # 2
+queue.enqueue(4)
+print(queue.is_empty()) # False 
+print(queue.size()) # 3
+print(queue.front()) # 2
 
+
+# 실습 문제 풀이 에시  
+
+# 1. 스택을 사용하여 문자열의 괄호 균형 확인하기 
+def is_balanced(expression):
+    stack = Stack()
+    for char in expression:
+        if char in "({[":
+            stack.push(char)
+        elif char in "]})":
+            if stack.is_empty():
+                return False
+            top_char = stack.pop()
+            if not matches(top_char, char):
+                return False
+    return stack.is_empty()
+
+def matches(opening, closing):
+    return (opening == '(' and closing == ')') or \
+           (opening == '{' and closing == '}') or \
+           (opening == '[' and closing == ']') 
+
+# 예제 사용
+print(is_balanced("{[()]}")) # True
+print(is_balanced("{[(])}")) # False
+print(is_balanced("((()))")) # True
+
+
+# 2. 큐를 사용하여 수열 옮기기 
+def move_sequence(sequence):
+    queue = Queue()
+    for item in sequence:
+        queue.enqueue(item)
+
+    reversed_sequence = []
+    while not queue.is_empty():
+        reversed_sequence.append(queue.dequeue())
+
+    return reversed_sequence
+
+# 예제 사용
+sequece = [1,2,3,4,5,6]
+print(move_sequence(sequece)) # [1,2,3,4,5,6]
+
+# 3. 스택을 사용하여 수열 뒤집기 
+def reverse_sequnce(sequnce):
+    stack = Stack()
+    for item in sequece:
+        stack.push(item)
+
+    reversed_sequence = []
+    while not stack.is_empty():
+        reversed_sequence.append(stack.pop())
+
+    return reversed_sequence
+
+# 예제 사용
+sequece = [1,2,3,4,5,6]
+print(reverse_sequnce(sequece)) # [1,2,3,4,5,6]
