@@ -29,3 +29,73 @@
         - 후위 순회 (Postorder Traversal)
                 
 """
+
+# 예제 코드 
+
+class TreeNode: 
+    def __init__(self, key):
+        self.left = None 
+        self.right = None
+        self.value = key 
+
+class BinaryTree: 
+    def __init__(self):
+        self.root = None 
+
+    def insert(self, key):
+        if self.root is None:
+            self.root = TreeNode(key)
+        else:
+            self._insert(self.root, key)
+
+    def _insert(self, root, key):
+        if key < root.value:
+            if root.left is None:
+                root.left = TreeNode(key)
+            else:
+                self._insert(root.left, key)
+        else:
+            if root.right is None:
+                root.right = TreeNode(key)
+            else: 
+                self._insert(root.right, key)
+
+    def preorder_traversal(self, node):
+        if node:
+            print(node.value, end=' ')
+            self.preorder_traversal(node.left) 
+            self.preorder_traversal(node.right)
+
+    def inorder_traversal(self, node):
+        if node:
+            self.inorder_traversal(node.left)
+            print(node.value, end=' ')
+            self.inorder_traversal(node.right)
+
+    def postorder_traversal(self, node):
+        if node: 
+            self.postorder_traversal(node.left)
+            self.postorder_traversal(node.right)
+            print(node.value, end=' ')
+
+# 예제 사용 
+bt = BinaryTree()
+bt.insert(10)
+bt.insert(5)
+bt.insert(15)
+bt.insert(2)
+bt.insert(7)
+bt.insert(12)
+bt.insert(20)
+
+print("Preorder traversal: ")
+bt.preorder_traversal(bt.root) # 출력: 10 5 2 7 15 12 20
+
+print("\nInorder traversal: ")
+bt.inorder_traversal(bt.root) # 출력: 2 5 7 10 12 15 20
+
+print("\nPostorder traversal: ")
+bt.postorder_traversal(bt.root) # 출력: 2 7 5 12 20 15 10
+
+
+# 그림 그리면 이해 쉬움. 
