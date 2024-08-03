@@ -44,9 +44,9 @@
         - 모든 연산에 대해 O(log n)를 보장합니다. 
 """
 
-# 예제 코드 
+###### 예제 코드 
 
-## 이진 탐색 트리 (BST)
+### 이진 탐색 트리 (BST)
 class TreeNode:
     def __init__(self, key):
         self.key = key 
@@ -112,8 +112,49 @@ class BinarySearchTree:
             current = current.left
         return current
 
+# 이진 탐색 트리 사용 예제 
+bst = BinarySearchTree()
 
-## AVL 트리
+# 노드 사입
+bst.insert(50)
+bst.insert(30)
+bst.insert(20)
+bst.insert(40)
+bst.insert(70)
+bst.insert(60)
+bst.insert(80)
+
+# 탐색 
+search_result = bst.search(40)
+if search_result:      
+    print("Search for 40 : ", search_result.key)
+else:
+    print("Search for 40 : Not found")
+
+search_result = bst.search(100)
+if search_result:      
+    print("Search for 100 : ", search_result.key)
+else:
+    print("Search for 100 : Not found")
+
+search_result = bst.search(80)
+if search_result:      
+    print("Search for 100 : ", search_result.key)
+else:
+    print("Search for 100 : Not found")
+
+# 삭제 
+bst.delete(20)
+bst.delete(30)
+bst.delete(50)
+
+# 삭제 후 탐색 
+print("Search for 20 (after delete) : ", bst.search(20))
+
+
+
+
+### AVL 트리
 
 
 
