@@ -112,49 +112,185 @@ class BinarySearchTree:
             current = current.left
         return current
 
-# 이진 탐색 트리 사용 예제 
-bst = BinarySearchTree()
+# # 이진 탐색 트리 사용 예제 
+# bst = BinarySearchTree()
 
-# 노드 사입
-bst.insert(50)
-bst.insert(30)
-bst.insert(20)
-bst.insert(40)
-bst.insert(70)
-bst.insert(60)
-bst.insert(80)
+# # 노드 사입
+# bst.insert(50)
+# bst.insert(30)
+# bst.insert(20)
+# bst.insert(40)
+# bst.insert(70)
+# bst.insert(60)
+# bst.insert(80)
 
-# 탐색 
-search_result = bst.search(40)
-if search_result:      
-    print("Search for 40 : ", search_result.key)
-else:
-    print("Search for 40 : Not found")
+# # 탐색 
+# search_result = bst.search(40)
+# if search_result:      
+#     print("Search for 40 : ", search_result.key)
+# else:
+#     print("Search for 40 : Not found")
 
-search_result = bst.search(100)
-if search_result:      
-    print("Search for 100 : ", search_result.key)
-else:
-    print("Search for 100 : Not found")
+# search_result = bst.search(100)
+# if search_result:      
+#     print("Search for 100 : ", search_result.key)
+# else:
+#     print("Search for 100 : Not found")
 
-search_result = bst.search(80)
-if search_result:      
-    print("Search for 100 : ", search_result.key)
-else:
-    print("Search for 100 : Not found")
+# search_result = bst.search(80)
+# if search_result:      
+#     print("Search for 100 : ", search_result.key)
+# else:
+#     print("Search for 100 : Not found")
 
-# 삭제 
-bst.delete(20)
-bst.delete(30)
-bst.delete(50)
+# # 삭제 
+# bst.delete(20)
+# bst.delete(30)
+# bst.delete(50)
 
-# 삭제 후 탐색 
-print("Search for 20 (after delete) : ", bst.search(20))
+# # 삭제 후 탐색 
+# print("Search for 20 (after delete) : ", bst.search(20))
 
 
 
 
 ### AVL 트리
+class AVLTreeNode:
+    def __init__(self, key):
+        self.key = key
+        self.left = None 
+        self.right = None
+        self.height = 1 
+
+class AVLTree:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, key):
+        self.root = self._insert(self.root, key)
+
+    def _insert(self, node, key):
+        if not node:
+            return AVLTreeNode(key)
+        elif key < node.key:
+            node.left = self._insert(node.left, key)
+        else: 
+            node.right = self._insert(node.right, key)
+        
+        node.height = 1 + max(self._get_height(node.left), self._get_height(node.right))
+        balance = self._get_balance(node)
+
+        if balance > 1 and key < node.left.key:
+            return self._right_rotate(node)
+        if balance < -1 and key > node.right.key:
+            return self._left_rotate(node)
+        if balance > 1 and key > node.left.key:
+            node.left = self._left_rotate(node.left)
+            return self._right_rotate(node)
+        if balance < -1 and key < node.right.key:
+            node.right = self._right_rotate(node.right)
+            return self._left_rotate(node)
+        return node
+
+    def _left_rotate(self, z):
+        y = z.right
+        T2 = y.left
+        y.left = z 
+        z.right = T2
+        z.height = 1 + max(self._get_height(z.left), self._get_height(z.right))
+        y.height = 1 + max(self._get_height(y.left), self._get_height(y.right))
+        return y
+    
+    def _right_rotate(self, z):
+        y = z.left
+        T3 = y.right
+        y.right = z
+        z.left = T3 
+        z.height = 1 + max(self._get_height(z.left), self._get_height(z.right))
+        y.height = 1 + max(self._get_height(y.left), self._get_height(y.right))
+        return y 
+    
+    def _get_height(self, node):
+        if not node: 
+            return 0 
+        return node.height
+    
+    def _get_balance(self, node):
+        if not node: 
+            return 0 
+        return self._get_height(node.left) - self._get_height(node.right)
+    
+    def delete(self, key):
+        self.root = self._delete(self.root, key)
+
+    def _delete(self, node, key):
+        if not node: 
+            return node 
+        elif key < node.key:
+            node.left = self._delete(node.left, key)
+        elif key > node.key: 
+            node.right = self._delete(node.right, key)
+        else:
+            if node.left is None:
+                return node.right
+            elif node.right is None:
+                return node.left
+            temp = self._min_value_node(node.right)
+            node.key = temp.key 
+            node.right = self._delete(node.right, temp.key)
+        node.height = 1 + max(self._get_height(node.left), self._get_height(node.right))
+        balance = self._get_balance(node)
+
+        if balance > 1 and self._get_balance(node.left) >= 0:
+            return self._right_rotate(node)
+        if balance > 1 and self._get_balance(node.left) < 0 : 
+            node.left = self._left_rotate(node.left)
+            return self._right_rotate(node)
+        if balance < -1 and self._get_balance(node.right) <= 0:
+            return self._left_rotate(node)
+        if balance < -1 and self._get_balance(node.right) > 0:
+            node.right = self._right_rotate(node.right)
+            return self._left_rotate(node)
+        return node
+    
+    def _min_value_node(self, node):
+        if node is None or node.left is None:
+            return node
+        return self._min_vlaue_node(node.left)
+    
+    def _search(self, node, key):
+        if node is None or node.key == key:
+            return node 
+        if key < node.key:
+            return self._search(node.left, key)
+        return self._search(node.right, key)
+    
+# AVL 트리 사용 예제 
+avl = AVLTree()
+
+# 노드 삽입 
+avl.insert(50)
+avl.insert(30)
+avl.insert(20)
+avl.insert(40)
+avl.insert(70)
+avl.insert(60)
+avl.insert(80)
+
+# 탐색 
+search_result = avl._search(avl.root, 40)
+if search_result:
+    print("Search for 40: ", search_result.key) 
+else:
+    print("Search for 40: Not found")
+
+
+
+## 균형 유지 테스트 예제 작성해 
+
+
+
+
 
 
 
