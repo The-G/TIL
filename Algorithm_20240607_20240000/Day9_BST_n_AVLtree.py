@@ -112,7 +112,7 @@ class BinarySearchTree:
             current = current.left
         return current
 
-# # 이진 탐색 트리 사용 예제 
+# ## 이진 탐색 트리 사용 예제 
 # bst = BinarySearchTree()
 
 # # 노드 사입
@@ -256,7 +256,7 @@ class AVLTree:
     def _min_value_node(self, node):
         if node is None or node.left is None:
             return node
-        return self._min_vlaue_node(node.left)
+        return self._min_value_node(node.left)
     
     def _search(self, node, key):
         if node is None or node.key == key:
@@ -265,29 +265,80 @@ class AVLTree:
             return self._search(node.left, key)
         return self._search(node.right, key)
     
-# AVL 트리 사용 예제 
-avl = AVLTree()
 
-# 노드 삽입 
-avl.insert(50)
-avl.insert(30)
-avl.insert(20)
-avl.insert(40)
-avl.insert(70)
-avl.insert(60)
-avl.insert(80)
+# ## AVL 트리 사용 예제 
+# avl = AVLTree()
 
-# 탐색 
-search_result = avl._search(avl.root, 40)
-if search_result:
-    print("Search for 40: ", search_result.key) 
-else:
-    print("Search for 40: Not found")
+# # 노드 삽입 
+# avl.insert(50)
+# avl.insert(30)
+# avl.insert(20)
+# avl.insert(40)
+# avl.insert(70)
+# avl.insert(60)
+# avl.insert(80)
 
+# # 탐색 
+# search_result = avl._search(avl.root, 40)
+# if search_result:
+#     print("Search for 40: ", search_result.key) 
+# else:
+#     print("Search for 40: Not found")
+
+# search_result = avl._search(avl.root, 100)
+# if search_result:
+#     print("Search for 100:", search_result.key)
+# else:
+#     print("Search for 100: Not found")
+
+# # 삭제 
+# avl.delete(20)
+# avl.delete(30)
+# avl.delete(50)
+
+# # 삭제 후 탐색 
+# search_result = avl._search(avl.root, 20)
+# if search_result:
+#     print("Search for 20 (after delete):", search_result.key)
+# else:
+#     print("Search for 20 (after delete): Not found")
 
 
 ## 균형 유지 테스트 예제 작성해 
+avl = AVLTree()
 
+# 노드 삽입 
+nodes_to_insert = [10, 20, 30, 40, 50, 25]
+for node in nodes_to_insert:
+    avl.insert(node)
+    print(f"Inserted {node} into the AVL tree.")
+
+# 트리의 균형을 확인하기 위해 각 노드의 높이와 균형 인수를 출력 
+def print_tree_balance(node):
+    if node is not None:
+        print(f"Node {node.key}: Height = {node.height}, Balance = {avl._get_balance(node)}")
+        print_tree_balance(node.left)
+        print_tree_balance(node.right)
+
+print("\nAVL Tree Balance After Insertions:")
+print_tree_balance(avl.root)
+
+# 특정 노드를 삭제하고 균형을 확인 
+nodes_to_delete = [10, 20]
+for node in nodes_to_delete: 
+    avl.delete(node)
+    print(f"\nDeleted {node} from the AVL tree.")
+    print("AVL Tree Balance After Delete:")
+    print_tree_balance(avl.root)
+
+# 예제 설명 
+"""
+    1. 노드 삽입 : [10,20,30,40,50,25]의 순서로 노드를 삽입한다. AVL 트리는 삽입 후 자동으로 균형을 유지한다.   
+    2. 트리의 균형 확안 : 삽입 후 각 노드의 높이(Height)와 균형 인수(Balance)를 출력하여 AVL 트리가 잘 균형을 유지하고 있는지 확인한다.
+    3. 노드 삭제 및 균형 확인 : 특정 노드 [10, 20]를 삭제하고, 삭제 후 AVL 트리가 여전히 균형을 유지하는지 확인한다. 
+
+    이 예제를 통해 AVL 트리의 균형 유지 능력을 테스트할 수 있다. 트리에 노드를 삽입하고 삭제하는 동안 트리가 자동으로 균형을 유지하는 과정을 시각적으로 확인할 수 있다.  
+"""
 
 
 
