@@ -32,17 +32,125 @@
 
 """
 
-## 1. 다익스트라 알고리즘 (Dijkstra's Algorithm)
+### 1. 다익스트라 알고리즘 (Dijkstra's Algorithm)
+import heapq
+
+def dijkstra(graph, start):
+    # 최단 거리 저장하는 딕셔너리 
+    distances = {node: float('infinity') for node in graph}
+    distances[start] = 0 
+
+    # 우선순위 큐로 사용할 리스트 
+    priority_queue = [(0, start)] # (거리, 노드)
+
+    while priority_queue:
+        current_distance, current_node = heapq.heappop(priority_queue)
+
+        if current_distance > distances[current_node]:
+            continue
+
+        # 인접 노드 확인 
+        for neighbor, weight in graph[current_node].items():
+            distance = current_distance + weight
+
+            # 더 짧은 경로 발견 시 갱신 
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(priority_queue, (distance, neighbor))
+
+    return distances
+
+# 그래프 예시 (딕셔너리로 표현)
+graph = {
+    'A': {'B': 1, 'C':4},
+    'B': {'A': 1, 'C': 2, 'D': 5},
+    'C': {'A': 4, 'B': 2, 'D': 1},
+    'D': {'B': 5, 'C': 1}
+}
+
+# 'A'에서 모든 노드까지의 최단 경로 찾기
+print(dijkstra(graph,'A'))
 
 
-## 2. 벨만-포드 알고리즘 (Bellman-Ford Algorithm)
+
+### 2. 벨만-포드 알고리즘 (Bellman-Ford Algorithm)
+def bellman_ford(graph, start):
+    # 초기화 
+    distance = {node: float('infinity') for node in graph}
+    distance[start] = 0 
+
+    # V-1번 모든 간선을 확인하고 경로 갱신 
+    for _ in range(len(graph) - 1):
+        for node in graph:
+            for neighbor, weight in graph[node].items():
+                if distance[node] + weight < distance[neighbor]:
+                    distance[neighbor] = distance[node] + weight
+    
+    # 음의 사이클 확인
+    for node in graph:
+        for neighbor, weight in graph[node].items():
+            if distance[node] + weight < distance[neighbor]:
+                raise ValueError("Graph contains a negative-weight cycle")
+    
+    return distance 
+
+# 그래프 예시 (딕셔너리로 표현)
+graph = {
+    'A': {'B': 1, 'C':4},
+    'B': {'A': 1, 'C': 2, 'D': 5},
+    'C': {'A': 4, 'B': 2, 'D': 1},
+    'D': {'B': 5, 'C': 1}
+}
+
+# 'A'에서 모든 노드까지의 최단 경로 찾기 
+print(bellman_ford(graph, 'A'))
 
 
-## 3. 플로이드-워셜 알고리즘 (Floyd-Warshall Algorithm)
+
+### 3. 플로이드-워셜 알고리즘 (Floyd-Warshall Algorithm)
+def floyd_warshall(graph):
+    # 그래프 초기화 
+    nodes = list(graph.keys())
+    distance = {node: {node2: float('infinity') for node2 in nodes} for node in nodes}
+
+    # 자기 자신으로 가는 거리는 0으로 설정 
+    for node in nodes: 
+        distance[node][node] = 0
+
+    # 초기 그래프 거리 설정 
+    for node in graph:
+        for neighbor, weight in graph[node].items():
+            distance[node][neighbor] = weight
+
+    # 동적 계획법을 이용해 최단 경로 찾기 
+    for k in nodes:
+        for i in nodes:
+            for j in nodes:
+                distance[i][j] = min(distance[i][j], distance[i][k] + distance[k][j])
+
+    return distance 
+
+# 그래프 예시 (딕셔너리로 표현)
+graph = {
+    'A': {'B': 1, 'C':4},
+    'B': {'A': 1, 'C': 2, 'D': 5},
+    'C': {'A': 4, 'B': 2, 'D': 1},
+    'D': {'B': 5, 'C': 1}
+}
+
+# 모든 노드 간의 최단 경로 찾기 
+result = floyd_warshall(graph)
+for i in result:
+    print(f"{i}: {result[i]}")
 
 
 
-
+"""
+    * 요약
+        - 다익스트라 알고리즘 : 음의 가중치가 없는 그래프에서 단일 출발점 최단 경로를 찾음. 
+        - 벨만-포드 알고르즘 : 음의 가중치가 있는 경우에도 단일 출발점 최단 경로를 찾음. 
+        - 플로이드-워셜 알고르즘 : 모든 노드 쌍 간의 최단 경로를 찾음. 
+"""  
 
 
 
