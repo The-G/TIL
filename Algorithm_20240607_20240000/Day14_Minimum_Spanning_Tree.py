@@ -24,6 +24,48 @@
 
 """
 ## 크루스칼 알고리즘 예제: 
+class DisjointSet:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [0] * n
+
+    def find(self, u):
+        if self.parent[u] != u: 
+            self.parent[u] = self.find(self.parent[u])
+        return self.parent[u]
+    
+    def union(self, u, v):
+        root_u = self.find(u)
+        root_v = self.find(v)
+        if root_u != root_v:
+            if self.rank[root_u] > self.rank[root_v]:
+                self.parent[root_v] = root_u
+            elif self.rank[root_u] < self.rank[root_v]:
+                self.parent[root_u] = root_v
+            else: 
+                self.parent[root_v] = root_u
+                self.rank[root_u] += 1
+
+def kruskal(n, edges):
+    mst = []
+    disjoint_set = DisjointSet(n)
+    edges.sort(key=lambda x: x[2]) # 간선을 가중치로 정렬
+
+    for u, v , weight in edges: 
+        if disjoint_set.find(u) != disjoint_set.find(v):
+            disjoint_set.union(u, v)
+            mst.append((u, v, weight))
+
+    return mst 
+
+# 노드 개수 
+n = 4
+# 간선 목록 (노드1, 노드2, 가중치)
+edges = [(0,1,10), (0,2,6), (0,3,5), (1,3,15), (2,3,4)]
+
+# 최소 신장 트리 구하기 
+mst = kruskal(n, edges)
+print("MST:", mst) # MST: [(2, 3, 4),(0, 3, 5),(0, 1, 10)]
 
 
 
@@ -39,6 +81,36 @@
 
 """
 ## 프림 알고리즘 예제: 
+import heapq 
+
+def prim(graph, start):
+    mst = []
+    visited = set([start])
+    edges = [(weight, start, to) for to, weight in graph[start].items()]
+    heapq.heapify(edges)
+
+    while edges:
+        weight, frm, to = heapq.heappop(edges)
+        if to not in visited:
+            visited.add(to)
+            mst.append((frm, to, weight))
+
+            for next_to, next_weight in graph[to].items():
+                if next_to not in visited:
+                    heapq.heappush(edges, (next_weight, to, next_to))
+    return mst 
+
+# 그래프 (노드: {연결노드: 가중치})
+graph = {
+    0: {1: 10, 2: 6, 3: 5},
+    1: {0: 10, 3: 15},
+    2: {0: 6, 3: 4},
+    3: {0: 5, 1: 15, 2: 4}   
+}
+
+# 최소 신장 트리 구하기 
+mst = prim(graph,0)
+print("MST:",mst) # MST: [(0,3,5),(3,2,4),(0,1,10)]
 
 
 
@@ -52,3 +124,5 @@
       Chapter 14에서는 최소 신장 트리(MST)의 개념과 이를 찾기 위한 크루스칼 및 프림 알고리즘을 다루었습니다. 이 알고리즘들은 네트워크 연결 문제에서 비용을 최소화하는 데 매우 유용하며, 그래프 이론에서 중요한 부분을 차지합니다.   
 
 """
+
+
