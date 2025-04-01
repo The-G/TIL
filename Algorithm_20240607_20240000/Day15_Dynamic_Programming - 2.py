@@ -51,7 +51,7 @@ def knapsack_dp(weights, values, W):
             else:
                 dp[i][w] = max(dp[i-1][w], values[i-1] + dp[i-1][w-weights[i-1]])
                 
-    return dp[n][W]
+    return dp[n][W]   
 
 # 예제 실행
 weights = [2, 3, 4, 5]
@@ -92,3 +92,7 @@ print(knapsack_optimized(weights, values, W)) # 출력 : 7
     - 배낭 문제 변형 (Subset Sum, Unbounded Knapsack, 등등)
 """    
     
+
+
+
+
