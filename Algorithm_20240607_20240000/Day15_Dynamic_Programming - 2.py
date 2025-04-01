@@ -25,7 +25,7 @@ def knapsack_recursive(weights, values, W, n):
     exclude = knapsack_recursive(weights, values, W, n-1)
     
     return max(include, exclude) # 둘 중 더 큰 값 선택 
-   
+      
 # 예제 데이터    
 weights = [2,3,4,5]
 values = [3,4,5,6]
